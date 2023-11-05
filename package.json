@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "build debug (win)": "cls && cargo build",
+        "build release (win)": "cls && cargo build -r"
+    }
+}

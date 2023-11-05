@@ -1,0 +1,20 @@
+[package]
+name = "tailed"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+"ctrlc" = "3.4.1"
+signalrs-client = "0.1.1"
+linemux = "0.3.0"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+nanoid = "0.4.0"
+qrcode = "0.12.0"
+regex = "1.10.2"
+serde_json = "1.0.107"
+serde = "1.0.190"
+pico-args = "0.5.0"
