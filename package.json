@@ -1,6 +1,8 @@
 {
+    "type": "module",
     "scripts": {
         "build debug (win)": "cls && cargo build",
-        "build release (win)": "cls && cargo build -r"
+        "build release (win)": "cls && cargo build -r",
+        "download-rules-main": "node update-rules.js"
     }
 }
