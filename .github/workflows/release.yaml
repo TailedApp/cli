@@ -24,9 +24,9 @@ jobs:
     runs-on: ${{ matrix.job.os }}
     steps:
       - name: Ensure Open SSL pre-requisites
-        run: sudo apt install libssl-dev
+        run: sudo apt install pkg-config
         if: matrix.job.os == 'ubuntu-latest'
-        
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
