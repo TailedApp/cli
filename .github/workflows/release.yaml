@@ -44,7 +44,7 @@ jobs:
         with:
           name: artifacts
           path: |
-            out/jreleaser/assemble/rust-jreleaser/archive/*.zip
+            out/jreleaser/assemble/tailed/archive/*.zip
 
       - name: Upload JReleaser output
         if: always()
