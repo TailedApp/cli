@@ -1,0 +1,81 @@
+# Generated with JReleaser 1.9.0 at 2023-12-27T20:45:50.614635Z
+project:
+  name: tailed
+  version: 0.1.0
+  description: Simple and quick monitoring of short-term processes over the web.
+  longDescription: Simple and quick monitoring of short-term processes over the web.
+  authors:
+    - Chris Wood
+  license: Apache-2.0
+  links:
+    homepage: https://tailed.live/
+  inceptionYear: 2023
+
+environment:
+  properties:
+    artifactsDir: out/jreleaser/assemble/tailed/archive
+
+platform:
+  replacements:
+    'osx-x86_64': 'darwin-amd64'
+    'osx-aarch_64': darwin-aarch_64
+    'linux-x86_64': 'linux-amd64'
+    'windows-x86_64': 'windows-amd64'
+
+assemble:
+  archive:
+    tailed:
+      active: ALWAYS
+      formats: [ ZIP ]
+      attachPlatform: true
+      fileSets:
+        - input: 'target/release'
+          output: 'bin'
+          includes: [ 'tailed{.exe,}' ]
+        - input: '.'
+          includes: [ 'LICENSE' ]
+
+distributions:
+  tailed:
+    type: BINARY
+    executable:
+      windowsExtension: exe
+    tags:
+      - tailed
+      - cli
+      - logs
+    artifacts:
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-darwin-amd64.zip'
+        platform: 'osx-x86_64'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-darwin-aarch_64.zip'
+        platform: 'osx-aarch_64'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux_musl.zip'
+        platform: 'linux_musl'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-windows-amd64.zip'
+        platform: 'windows-x86_64'
+
+packagers:
+  brew:
+    active: ALWAYS
+    multiPlatform: true
+    commitAuthor:
+      name: tailed
+      email: chris@wigan.dev
+    repository:
+      owner: TailedApp
+      name: homebrew
+  chocolatey:
+    active: ALWAYS
+    commitAuthor:
+      name: tailed
+      email: chris@wigan.dev
+    repository:
+      owner: TailedApp
+      name: chocolatey
+
+release:
+  github:
+    owner: TailedApp
+    name: cli
+    overwrite: true
+    skipTag: true

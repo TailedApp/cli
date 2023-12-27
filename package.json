@@ -3,6 +3,8 @@
     "scripts": {
         "build debug (win)": "cls && cargo build",
         "build release (win)": "cls && cargo build -r",
+        "build debug (mac)": "clear && cargo build",
+        "build release (mac)": "clear && cargo build -r",
         "download-rules-main": "node update-rules.js"
     }
 }
