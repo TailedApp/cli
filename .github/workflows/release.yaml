@@ -23,6 +23,10 @@ jobs:
           - { target: aarch64-unknown-linux-musl, os: ubuntu-latest , use-cross: true, jreleaser_platform: linux_musl-aarch_64 }
     runs-on: ${{ matrix.job.os }}
     steps:
+      - name: Ensure Open SSL pre-requisites
+        run: sudo apt install libssl-dev
+        if: matrix.job.os == 'ubuntu-latest'
+        
       - name: Checkout
         uses: actions/checkout@v3
         with:
