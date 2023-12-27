@@ -15,32 +15,42 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ ubuntu-latest, macOS-latest, windows-latest ]
-    runs-on: ${{ matrix.os }}
+        job:
+          - { target: aarch64-apple-darwin     , os: macos-latest  ,                  jreleaser_platform: osx-aarch_64   }
+          - { target: x86_64-apple-darwin      , os: macos-latest  ,                  jreleaser_platform: osx-x86_64     }
+          - { target: x86_64-pc-windows-msvc   , os: windows-latest,                  jreleaser_platform: windows-x86_64 }
+          - { target: x86_64-unknown-linux-gnu , os: ubuntu-latest ,                  jreleaser_platform: linux-x86_64   }
+          - { target: aarch64-unknown-linux-gnu, os: ubuntu-latest , use-cross: true, jreleaser_platform: linux-aarch_64 }
+    runs-on: ${{ matrix.job.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - uses: actions-rs/toolchain@b2417cde72dcf67f306c0ae8e0828a81bf0b189f # tag=v1.0.7
+      - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+          target: ${{ matrix.job.target }}
+          override: true
+          profile: minimal
 
-      - uses: actions-rs/cargo@ae10961054e4aa8b4aa7dffede299aaf087aa33b # tag=v1.0.3
+      - uses: actions-rs/cargo@v1
         with:
+          use-cross: ${{ matrix.job.use-cross }}
           command: build
-          args: --release --all-features
+          args: --release --all-features --target=${{ matrix.job.target }}
 
       - name: jReleaser assemble
-        uses: jreleaser/release-action@9d00b8a3e38acac18558faf7152ca24368ed0d9f # tag=v2.2.0
+        uses: jreleaser/release-action@v2
         with:
           arguments: assemble
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          JRELEASER_PLATFORM_OVERRIDE: ${{ matrix.job.jreleaser_platform }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3.1.0
+        uses: actions/upload-artifact@v3
         with:
           name: artifacts
           path: |
@@ -48,9 +58,9 @@ jobs:
 
       - name: Upload JReleaser output
         if: always()
-        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3.1.0
+        uses: actions/upload-artifact@v3
         with:
-          name: jreleaser-${{ matrix.os }}
+          name: jreleaser-${{ matrix.job.os }}
           path: |
             out/jreleaser/trace.log
             out/jreleaser/output.properties
@@ -61,15 +71,15 @@ jobs:
     if: success() && startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Download artifacts
-        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3.0.0
+        uses: actions/download-artifact@v3
 
       - name: jReleaser release
-        uses: jreleaser/release-action@9d00b8a3e38acac18558faf7152ca24368ed0d9f # tag=v2.2.0
+        uses: jreleaser/release-action@v2
         with:
           arguments: full-release -PartifactsDir=artifacts -PskipArchiveResolver
         env:
@@ -78,7 +88,7 @@ jobs:
 
       - name: Upload JReleaser output
         if: always()
-        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3.1.0
+        uses: actions/upload-artifact@v3
         with:
           name: jreleaser-release
           path: |
