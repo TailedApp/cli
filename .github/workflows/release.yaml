@@ -23,6 +23,12 @@ jobs:
           - { target: aarch64-unknown-linux-musl, os: ubuntu-latest , use-cross: true, jreleaser_platform: linux_musl-aarch_64 }
     runs-on: ${{ matrix.job.os }}
     steps:
+      - uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: musl-tools # provides musl-gcc
+          version: 1.0
+        if: matrix.job.os == 'ubuntu-latest'
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
