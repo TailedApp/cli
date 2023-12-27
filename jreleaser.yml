@@ -19,7 +19,6 @@ platform:
   replacements:
     'osx-x86_64': 'darwin-amd64'
     'osx-aarch_64': darwin-aarch_64
-    'linux-x86_64': 'linux-amd64'
     'windows-x86_64': 'windows-amd64'
 
 assemble:
@@ -49,8 +48,10 @@ distributions:
         platform: 'osx-x86_64'
       - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-darwin-aarch_64.zip'
         platform: 'osx-aarch_64'
-      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux_musl.zip'
-        platform: 'linux_musl'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux_musl-x86_64.zip'
+        platform: 'linux_musl-x86_64'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux_musl-aarch_64.zip'
+        platform: 'linux_musl-aarch_64'
       - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-windows-amd64.zip'
         platform: 'windows-x86_64'
 
