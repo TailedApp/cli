@@ -64,7 +64,7 @@ packagers:
       email: chris@wigan.dev
     repository:
       owner: TailedApp
-      name: homebrew
+      name: homebrew-tap
   chocolatey:
     active: ALWAYS
     commitAuthor:
