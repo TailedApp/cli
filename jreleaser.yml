@@ -1,7 +1,7 @@
 # Generated with JReleaser 1.9.0 at 2023-12-27T20:45:50.614635Z
 project:
   name: tailed
-  version: 0.1.0
+  version: 0.1.1
   description: Simple and quick monitoring of short-term processes over the web.
   longDescription: Simple and quick monitoring of short-term processes over the web.
   authors:
