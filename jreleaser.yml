@@ -1,7 +1,7 @@
 # Generated with JReleaser 1.9.0 at 2023-12-27T20:45:50.614635Z
 project:
   name: tailed
-  version: 0.1.4
+  version: 0.1.5
   description: Simple and quick monitoring of short-term processes over the web.
   longDescription: Simple and quick monitoring of short-term processes over the web.
   authors:
@@ -46,15 +46,15 @@ distributions:
       - cli
       - logs
     artifacts:
-      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-darwin-amd64.zip'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-x86_64-apple-darwin.zip'
         platform: 'osx-x86_64'
-      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-darwin-aarch_64.zip'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-aarch64-apple-darwin.zip'
         platform: 'osx-aarch_64'
-      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux_musl-x86_64.zip'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-x86_64-unknown-linux-musl.zip'
         platform: 'linux_musl-x86_64'
-      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux_musl-aarch_64.zip'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-aarch64-unknown-linux-musl.zip'
         platform: 'linux_musl-aarch_64'
-      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-windows-amd64.zip'
+      - path: '{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-x86_64-pc-windows-msvc.zip'
         platform: 'windows-x86_64'
 
 packagers:
