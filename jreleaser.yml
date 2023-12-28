@@ -1,7 +1,7 @@
 # Generated with JReleaser 1.9.0 at 2023-12-27T20:45:50.614635Z
 project:
   name: tailed
-  version: 0.1.1
+  version: 0.1.2
   description: Simple and quick monitoring of short-term processes over the web.
   longDescription: Simple and quick monitoring of short-term processes over the web.
   authors:
@@ -18,7 +18,7 @@ environment:
 platform:
   replacements:
     'osx-x86_64': 'darwin-amd64'
-    'osx-aarch_64': darwin-aarch_64
+    'osx-aarch_64': 'darwin-aarch_64'
     'windows-x86_64': 'windows-amd64'
 
 assemble:
@@ -28,7 +28,7 @@ assemble:
       formats: [ ZIP ]
       attachPlatform: true
       fileSets:
-        - input: 'target/release'
+        - input: 'target/{{ osPlatformReplaced }}/release'
           output: 'bin'
           includes: [ 'tailed{.exe,}' ]
         - input: '.'
@@ -78,5 +78,10 @@ release:
   github:
     owner: TailedApp
     name: cli
-    overwrite: true
+    overwrite: false
+    update:
+      enabled: true
+      sections:
+        - BODY
+        - ASSETS
     skipTag: true
